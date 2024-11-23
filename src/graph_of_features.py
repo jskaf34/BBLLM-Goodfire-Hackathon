@@ -59,6 +59,9 @@ if __name__ == "__main__":
                                 else:
                                     graph.add_edge(edge[0],edge[1], weight=1)
                 conversational[i]["token_features"] = tokens_features_list
+            except KeyboardInterrupt :
+                print("KeyboardInterrupt detected! Breaking the loop and saving the graph.")
+                break
             except:
                 print(f"Exception or Error occured on conversation {i}")
                 continue
@@ -69,4 +72,4 @@ if __name__ == "__main__":
         for conversation in conversational:
             output_file.write(json.dumps(conversational, ensure_ascii=False) + "\n")
     
-    nx.write_weighted_edgelist(graph, "graph.weighted")
+    nx.write_weighted_edgelist(graph, "data/graph.weighted")

@@ -1,0 +1,11 @@
+version: "3.8"
+
+services:
+  app:
+    container_name: prod-front
+    image: prod-front
+    build:
+      context: ./app
+      dockerfile: Dockerfile.prod
+    ports:
+        - "8080:80"

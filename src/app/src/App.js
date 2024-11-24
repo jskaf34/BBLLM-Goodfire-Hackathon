@@ -72,9 +72,11 @@ const FeatureGraphBuilder = ({ style, graphData, mapping}) => {
 
 const App = () => {
   const [HeightGraphData, setHeightGraphData] = useState([]);
+  const [seventyGraphData, setSeventyGraphData] = useState([]);
   const [mapping, setMapping] = useState([]);
   const [mappingLoading, setMappingLoading] = useState(true)
   const [graphHeightLoading, setGraphHeightLoading] = useState(true)
+  const [graphSeventyLoading, setGraphSeventyLoading] = useState(true)
 
   const processData = (rawData) => {
     const lines = rawData.split("\n").filter((line) => line.trim() !== "");
@@ -95,6 +97,23 @@ const App = () => {
       } catch (err) {
         console.error("Failed to load data:", err);
         setGraphHeightLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch("/graphseventy.txt");
+        const rawData = await response.text();
+        const processedData = processData(rawData);
+        setGraphSeventyLoading(false);
+        setSeventyGraphData(processedData);
+      } catch (err) {
+        console.error("Failed to load data:", err);
+        setGraphSeventyLoading(false);
       }
     };
 
@@ -123,7 +142,7 @@ const App = () => {
     fetchMapping();
   }, []);
 
-  if (graphHeightLoading | mappingLoading) {
+  if (graphHeightLoading | mappingLoading | graphSeventyLoading) {
     return <div style={{ textAlign: "center", padding: "20px" }}>Loading data...</div>;
   }
 
@@ -137,7 +156,7 @@ const App = () => {
       </div>
 
       <div style={boxStyle}>
-        <RandomGraphBuilder style={{ height: "100%", width: "100%" }} />
+        <FeatureGraphBuilder style={{ height: "100%", width: "100%" }} graphData={seventyGraphData} mapping={mapping} />
         <div style={descriptionStyle}>LLama 70B</div>
       </div>
     </div>

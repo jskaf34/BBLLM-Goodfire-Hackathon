@@ -1,5 +1,5 @@
 import json
-from time import time
+import time
 from tqdm import tqdm
 import os
 import goodfire

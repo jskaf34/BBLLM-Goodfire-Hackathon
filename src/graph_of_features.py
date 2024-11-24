@@ -14,12 +14,14 @@ GOODFIRE_API_KEY = os.getenv('GOODFIRE_API_KEY')
 client = goodfire.Client(
     GOODFIRE_API_KEY
   )
-variant = goodfire.Variant("meta-llama/Meta-Llama-3-8B-Instruct")
+variant = goodfire.Variant("meta-llama/Meta-Llama-3.1-70B-Instruct")
 conversational = {}
 graph = nx.Graph()
 THRESHOLD = 1.0
 TIMEOUT = 4
 MAX_RETRY = 3
+mapping_ids_labels = {}
+OUTPUT_MAPPING_FILE = "data/index_label_mapping_70B.json"  # Output mapping file
 
 
 if __name__ == "__main__":
@@ -56,6 +58,7 @@ if __name__ == "__main__":
                                                                                     for act in token.inspect()._acts if act.activation > THRESHOLD]]
                                                                 )
                                     # node_feature_ids = [act.feature.index_in_sae for act in token.inspect()._acts]
+                                    mapping_ids_labels.update({act.feature.index_in_sae: act.feature.label for act in token.inspect()._acts})
                                     node_feature_ids = [act.feature.index_in_sae for act in token.inspect()._acts if act.activation > THRESHOLD]
                                     feature_edges = [(u,v) for u, v in combinations(node_feature_ids, 2)]
                                     for edge in feature_edges:
@@ -76,8 +79,14 @@ if __name__ == "__main__":
                     break
             
 
-    with open("data/formatted_feature_data.json", "w", encoding="utf-8") as output_file:
-        for conversation in conversational:
-            output_file.write(json.dumps(conversational, ensure_ascii=False) + "\n")
+    with open("data/formatted_feature_data_70B.json", "w", encoding="utf-8") as output_file:
+        for conversation in conversational.values(): 
+            output_file.write(json.dumps(conversation, ensure_ascii=False) + "\n")
+
+
+    with open(OUTPUT_MAPPING_FILE, "w", encoding="utf-8") as f:
+        json.dump(mapping_ids_labels, f, ensure_ascii=False, indent=4)
     
-    nx.write_weighted_edgelist(graph, "data/graph.weighted")
+
+    
+    nx.write_weighted_edgelist(graph, "data/graph_70B.weighted")

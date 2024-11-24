@@ -1,0 +1,33 @@
+FROM node:20-alpine AS builder
+ENV NODE_ENV=production
+
+WORKDIR /app
+
+# Copy and install dependencies, including devDependencies temporarily
+COPY package.json yarn.lock ./
+RUN npm install --include=dev
+
+# Copy application source code
+COPY . .
+
+# Apply patches
+RUN npm run postinstall
+
+# Build the application
+RUN npm run build
+
+# Use nginx for production
+FROM nginx:1.21.0-alpine AS production
+ENV NODE_ENV=production
+
+# Copy built assets from builder
+COPY --from=builder /app/build /usr/share/nginx/html
+
+# Copy custom nginx configuration
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+# Expose the HTTP port
+EXPOSE 80
+
+# Start nginx
+CMD ["nginx", "-g", "daemon off;"]

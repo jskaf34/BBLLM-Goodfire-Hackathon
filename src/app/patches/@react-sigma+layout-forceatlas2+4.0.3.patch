@@ -1,0 +1,8 @@
+diff --git a/node_modules/@react-sigma/layout-forceatlas2/lib/react-sigma_layout-forceatlas2.esm.min.js b/node_modules/@react-sigma/layout-forceatlas2/lib/react-sigma_layout-forceatlas2.esm.min.js
+index 5229933..f141655 100644
+--- a/node_modules/@react-sigma/layout-forceatlas2/lib/react-sigma_layout-forceatlas2.esm.min.js
++++ b/node_modules/@react-sigma/layout-forceatlas2/lib/react-sigma_layout-forceatlas2.esm.min.js
+@@ -1,2 +1,2 @@
+-import o from"graphology-layout-forceatlas2";import{useLayoutFactory as t,useWorkerLayoutFactory as a,WorkerLayoutControl as r}from"@react-sigma/layout-core";import e from"graphology-layout-forceatlas2/worker";import s from"react";const l=t(o,{iterations:100}),u=a(e),c=({id:o,className:t,style:a,settings:e={},autoRunFor:l,children:c,labels:y})=>{const i={id:o,className:t,style:a,settings:e,autoRunFor:l,labels:y,layout:u};return s.createElement(r,Object.assign({},i),c)};export{c as LayoutForceAtlas2Control,l as useLayoutForceAtlas2,u as useWorkerLayoutForceAtlas2};
++import o from"graphology-layout-forceatlas2";import{useLayoutFactory as t,useWorkerLayoutFactory as a,WorkerLayoutControl as r}from"@react-sigma/layout-core";import e from"graphology-layout-forceatlas2/worker.js";import s from"react";const l=t(o,{iterations:100}),u=a(e),c=({id:o,className:t,style:a,settings:e={},autoRunFor:l,children:c,labels:y})=>{const i={id:o,className:t,style:a,settings:e,autoRunFor:l,labels:y,layout:u};return s.createElement(r,Object.assign({},i),c)};export{c as LayoutForceAtlas2Control,l as useLayoutForceAtlas2,u as useWorkerLayoutForceAtlas2};
+ //# sourceMappingURL=react-sigma_layout-forceatlas2.esm.min.js.map

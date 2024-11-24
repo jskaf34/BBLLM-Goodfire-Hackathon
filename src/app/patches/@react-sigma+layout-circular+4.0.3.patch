@@ -1,0 +1,8 @@
+diff --git a/node_modules/@react-sigma/layout-circular/lib/react-sigma_layout-circular.esm.min.js b/node_modules/@react-sigma/layout-circular/lib/react-sigma_layout-circular.esm.min.js
+index 210f434..73a010e 100644
+--- a/node_modules/@react-sigma/layout-circular/lib/react-sigma_layout-circular.esm.min.js
++++ b/node_modules/@react-sigma/layout-circular/lib/react-sigma_layout-circular.esm.min.js
+@@ -1,2 +1,2 @@
+-import o from"graphology-layout/circular";import{useLayoutFactory as r}from"@react-sigma/layout-core";const a=r(o,{});export{a as useLayoutCircular};
++import o from"graphology-layout/circular.js";import{useLayoutFactory as r}from"@react-sigma/layout-core";const a=r(o,{});export{a as useLayoutCircular};
+ //# sourceMappingURL=react-sigma_layout-circular.esm.min.js.map

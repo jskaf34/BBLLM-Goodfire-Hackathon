@@ -163,3 +163,7 @@ cython_debug/
 
 notes.txt
 data/
+src/analyse_graph_8B.ipynb
+src/analyse_graph_70B.ipynb
+src/from_json_to_graph.py
+src/data_transformation.py

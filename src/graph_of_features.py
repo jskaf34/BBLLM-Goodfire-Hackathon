@@ -40,16 +40,15 @@ if __name__ == "__main__":
                 tokens_features_list = []
                 for token in tqdm(context.tokens):
                         if not ("<|" in token.__str__() and "|>" in token.__str__()) :
-                            tokens_features_list.append({
-                                                            token._token: [
-                                                                {
-                                                                    "feature_label": act.feature.label,
-                                                                    "feature_index_sae": act.feature.index_in_sae,
-                                                                    "activation": act.activation
-                                                                } 
-                                                                for act in token.inspect()._acts if act.activation > THRESHOLD
-                                                            ]
-                                                        })
+                            tokens_features_list.append(
+                                                            [token._token, [
+                                                                            {
+                                                                                "feature_label": act.feature.label,
+                                                                                "feature_index_sae": act.feature.index_in_sae,
+                                                                                "activation": act.activation
+                                                                            } 
+                                                                            for act in token.inspect()._acts if act.activation > THRESHOLD]]
+                                                        )
                             # node_feature_ids = [act.feature.index_in_sae for act in token.inspect()._acts]
                             node_feature_ids = [act.feature.index_in_sae for act in token.inspect()._acts if act.activation > THRESHOLD]
                             feature_edges = [(u,v) for u, v in combinations(node_feature_ids, 2)]

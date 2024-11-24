@@ -4,7 +4,7 @@ import { useLoadGraph, useRegisterEvents, useSigma, useSetSettings } from "@reac
 import Graph from "graphology";
 import { useRandom } from "../../hooks/useRandom";
 
-export const FeatureGraph = ({ graphData }) => {
+export const FeatureGraph = ({ graphData, mapping }) => {
   const loadGraph = useLoadGraph();
   const { assign } = useLayoutCircular();
   const registerEvents = useRegisterEvents();
@@ -89,7 +89,7 @@ export const FeatureGraph = ({ graphData }) => {
 
       Object.entries(nodeSizes).forEach(([node, size]) => {
         graph.addNode(node, {
-          label: node,
+          label: mapping[node] || node,
           size: 1,
           color: "#00FF00",
           x: 0,

@@ -43,7 +43,7 @@ const RandomGraphBuilder = ({ style }) => {
   );
 };
 
-const FeatureGraphBuilder = ({ style, graphData }) => {
+const FeatureGraphBuilder = ({ style, graphData, mapping}) => {
   const settings = useMemo(
     () => ({
       allowInvalidContainer: true,
@@ -57,7 +57,7 @@ const FeatureGraphBuilder = ({ style, graphData }) => {
 
   return (
     <SigmaContainer style={style} settings={settings}>
-      <FeatureGraph graphData={graphData} />
+      <FeatureGraph graphData={graphData} mapping={mapping} />
       <ControlsContainer position={"bottom-right"}>
         <ZoomControl />
         <LayoutForceAtlas2Control autoRunFor={2000} />
@@ -71,8 +71,10 @@ const FeatureGraphBuilder = ({ style, graphData }) => {
 };
 
 const App = () => {
-  const [graphData, setGraphData] = useState([]);
-  const [loading, setLoading] = useState(true)
+  const [HeightGraphData, setHeightGraphData] = useState([]);
+  const [mapping, setMapping] = useState([]);
+  const [mappingLoading, setMappingLoading] = useState(true)
+  const [graphHeightLoading, setGraphHeightLoading] = useState(true)
 
   const processData = (rawData) => {
     const lines = rawData.split("\n").filter((line) => line.trim() !== "");
@@ -88,18 +90,40 @@ const App = () => {
         const response = await fetch("/graph.txt");
         const rawData = await response.text();
         const processedData = processData(rawData);
-        setGraphData(processedData);
-        setLoading(false);
+        setHeightGraphData(processedData);
+        setGraphHeightLoading(false);
       } catch (err) {
         console.error("Failed to load data:", err);
-        setLoading(false);
+        setGraphHeightLoading(false);
       }
     };
 
     fetchData();
   }, []);
 
-  if (loading) {
+  useEffect(() => {
+    const fetchMapping = async () => {
+      try {
+        const response = await fetch("/mapping.json");
+        const rawData = await response.json();
+
+        const mappingDict = Object.entries(rawData).reduce((acc, [key, value]) => {
+          acc[key] = value;
+          return acc;
+        }, {});
+
+        setMapping(mappingDict);
+        setMappingLoading(false);
+      } catch (error) {
+        console.error("Failed to load mapping data:", error);
+        setMappingLoading(false);
+      }
+    };
+
+    fetchMapping();
+  }, []);
+
+  if (graphHeightLoading | mappingLoading) {
     return <div style={{ textAlign: "center", padding: "20px" }}>Loading data...</div>;
   }
 
@@ -108,7 +132,7 @@ const App = () => {
       <div style={headerStyle}>BB LLM</div>
 
       <div style={boxStyle}>
-        <FeatureGraphBuilder style={{ height: "100%", width: "100%" }} graphData={graphData} />
+        <FeatureGraphBuilder style={{ height: "100%", width: "100%" }} graphData={HeightGraphData} mapping={mapping} />
         <div style={descriptionStyle}>LLama 8B</div>
       </div>
 

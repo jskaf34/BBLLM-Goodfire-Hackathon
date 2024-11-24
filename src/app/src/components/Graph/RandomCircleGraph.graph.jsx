@@ -6,30 +6,77 @@ import { useRandom } from "../../hooks/useRandom";
 
 export const FeatureGraph = ({ graphData }) => {
   const loadGraph = useLoadGraph();
-  const { positions, assign } = useLayoutCircular();
+  const { assign } = useLayoutCircular();
   const registerEvents = useRegisterEvents();
   const setSettings = useSetSettings();
   const sigma = useSigma();
 
   const [hoveredNode, setHoveredNode] = useState();
+  const [sentence, setSentence] = useState("");
+  const [jsonData, setJsonData] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  const updateNodeColor = () => {
-    const graph = sigma.getGraph();
-    const hardcodedNodeKey = 61039; // For now, this was for testing purpose, feature will be add soon
-    const newColor = "#FF0000";
+  // Fetch JSON and construct sentence
+  useEffect(() => {
+    const fetchSentence = async () => {
+      try {
+        const response = await fetch("/sentence.json");
+        const data = await response.json();
 
-    if (graph.hasNode(hardcodedNodeKey)) {
-      graph.updateNodeAttributes(hardcodedNodeKey, (attributes) => ({
-        ...attributes,
-        color: newColor,
-      }));
-      sigma.refresh();
-      console.log(`Node ${hardcodedNodeKey} color updated to ${newColor}`);
-    } else {
-      console.error(`Node ${hardcodedNodeKey} does not exist in the graph.`);
+        const sentence = data.token_features.map(([word]) => word).join("");
+        setSentence(sentence);
+        setJsonData(data);
+        setLoading(false);
+      } catch (error) {
+        console.error("Failed to fetch sentence data:", error);
+        setSentence("Error loading sentence.");
+        setJsonData(null);
+        setLoading(false);
+      }
+    };
+
+    fetchSentence();
+  }, []);
+
+  // Function to handle word clicks
+  const handleWordClick = (word) => {
+    if (!jsonData) return;
+
+    const wordData = jsonData.token_features.find(([token]) => token.trim() === word.trim());
+    if (wordData) {
+      const featureIndices = wordData[1].map((feature) => feature.feature_index_sae);
+      highlightNodes(featureIndices);
     }
   };
 
+  // Function to highlight nodes
+  const highlightNodes = (featureIndices) => {
+    const graph = sigma.getGraph();
+
+    // Reset all nodes to default color
+    graph.forEachNode((node) => {
+      graph.updateNodeAttributes(node, (attributes) => ({
+        ...attributes,
+        color: "#00FF00",
+        size: 1,
+      }));
+    });
+
+    // Highlight nodes corresponding to feature indices
+    featureIndices.forEach((featureIndex) => {
+      if (graph.hasNode(featureIndex)) {
+        graph.updateNodeAttributes(featureIndex, (attributes) => ({
+          ...attributes,
+          color: "#FF0000",
+          size: 5,
+        }));
+      }
+    });
+
+    sigma.refresh(); // Refresh the graph to reflect changes
+  };
+
+  // Set up the graph when data is loaded
   useEffect(() => {
     if (graphData.length > 0) {
       const graph = new Graph();
@@ -43,7 +90,7 @@ export const FeatureGraph = ({ graphData }) => {
       Object.entries(nodeSizes).forEach(([node, size]) => {
         graph.addNode(node, {
           label: node,
-          size: 1, 
+          size: 1,
           color: "#00FF00",
           x: 0,
           y: 0,
@@ -96,8 +143,27 @@ export const FeatureGraph = ({ graphData }) => {
     });
   }, [hoveredNode, setSettings, sigma]);
 
-  return null;
+  if (loading) {
+    return <div>Loading sentence...</div>;
+  }
+
+  return (
+    <div>
+      <p style={{ fontSize: "20px", fontWeight: "bold", color: "#333", textAlign: "center" }}>
+        {jsonData.token_features.map(([word], index) => (
+          <span
+            key={index}
+            onClick={() => handleWordClick(word)}
+            style={{ cursor: "pointer", color: "#007BFF", marginRight: "5px" }}
+          >
+            {word}
+          </span>
+        ))}
+      </p>
+    </div>
+  );
 };
+
 
 export const RandomCircleGraph = () => {
   const { faker, randomColor } = useRandom();

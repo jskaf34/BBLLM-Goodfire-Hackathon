@@ -1,0 +1,204 @@
+{
+  "token_features": [
+    [
+      "I",
+      [
+        {
+          "activation": 4.03125,
+          "feature_index_sae": 62430,
+          "feature_label": "First-person singular pronoun at sentence start or in self-reference"
+        },
+        {
+          "activation": 3.0625,
+          "feature_index_sae": 25840,
+          "feature_label": "First-person pronoun 'I' at the start of requests or statements"
+        },
+        {
+          "activation": 1.046875,
+          "feature_index_sae": 17026,
+          "feature_label": "Beginning of a new statement or scenario with an indefinite article"
+        }
+      ]
+    ],
+    [
+      " am",
+      [
+        {
+          "activation": 3.765625,
+          "feature_index_sae": 50533,
+          "feature_label": "First-person self-reference"
+        },
+        {
+          "activation": 1.03125,
+          "feature_index_sae": 27460,
+          "feature_label": "The model is being given instructions about its role or task"
+        }
+      ]
+    ],
+    [
+      " a",
+      [
+        {
+          "activation": 2.859375,
+          "feature_index_sae": 63399,
+          "feature_label": "Specifying identity or role in a prompt"
+        },
+        {
+          "activation": 2.15625,
+          "feature_index_sae": 58867,
+          "feature_label": "Detection of the indefinite article 'a' in English"
+        },
+        {
+          "activation": 1.859375,
+          "feature_index_sae": 24720,
+          "feature_label": "Structure of formal explanatory language"
+        },
+        {
+          "activation": 1.5703125,
+          "feature_index_sae": 50466,
+          "feature_label": "The model should assume a specific role or persona"
+        }
+      ]
+    ],
+    [
+      " pirate",
+      [
+        {
+          "activation": 6.40625,
+          "feature_index_sae": 22236,
+          "feature_label": "Pirate characters and themes in fiction and role-playing games"
+        },
+        {
+          "activation": 2.578125,
+          "feature_index_sae": 13381,
+          "feature_label": "Pirate-related language and themes"
+        },
+        {
+          "activation": 1.2265625,
+          "feature_index_sae": 48518,
+          "feature_label": "Extraterrestrial life and alien concepts"
+        },
+        {
+          "activation": 1.0859375,
+          "feature_index_sae": 6956,
+          "feature_label": "Professional or academic expertise in analytical fields"
+        },
+        {
+          "activation": 1.0859375,
+          "feature_index_sae": 36961,
+          "feature_label": "Liberal and progressive political identities, with some activation for conspiracy theorist perspectives"
+        }
+      ]
+    ],
+    [
+      ",",
+      [
+        {
+          "activation": 6.28125,
+          "feature_index_sae": 22236,
+          "feature_label": "Pirate characters and themes in fiction and role-playing games"
+        },
+        {
+          "activation": 1.3203125,
+          "feature_index_sae": 4139,
+          "feature_label": "Commas in fictional dialogue or character descriptions"
+        }
+      ]
+    ],
+    [
+      " give",
+      [
+        {
+          "activation": 3.4375,
+          "feature_index_sae": 29255,
+          "feature_label": "The user is requesting the model to provide or generate something"
+        },
+        {
+          "activation": 2.140625,
+          "feature_index_sae": 9171,
+          "feature_label": "User requesting the AI to provide or generate content"
+        },
+        {
+          "activation": 1.140625,
+          "feature_index_sae": 59770,
+          "feature_label": "The user is requesting information or a response"
+        }
+      ]
+    ],
+    [
+      " me",
+      [
+        {
+          "activation": 4.21875,
+          "feature_index_sae": 8062,
+          "feature_label": "The user is requesting information or a task from the AI"
+        },
+        {
+          "activation": 1.71875,
+          "feature_index_sae": 59770,
+          "feature_label": "The user is requesting information or a response"
+        },
+        {
+          "activation": 1.4296875,
+          "feature_index_sae": 22236,
+          "feature_label": "Pirate characters and themes in fiction and role-playing games"
+        }
+      ]
+    ],
+    [
+      " the",
+      [
+        {
+          "activation": 8.25,
+          "feature_index_sae": 22236,
+          "feature_label": "Pirate characters and themes in fiction and role-playing games"
+        }
+      ]
+    ],
+    [
+      " treasure",
+      [
+        {
+          "activation": 6.1875,
+          "feature_index_sae": 39824,
+          "feature_label": "Treasure and valuable hidden objects in adventure contexts"
+        },
+        {
+          "activation": 2.09375,
+          "feature_index_sae": 43853,
+          "feature_label": "Searching for hidden treasure in adventure narratives"
+        },
+        {
+          "activation": 1.28125,
+          "feature_index_sae": 22236,
+          "feature_label": "Pirate characters and themes in fiction and role-playing games"
+        },
+        {
+          "activation": 1.2265625,
+          "feature_index_sae": 65505,
+          "feature_label": "Product and service categorization or description"
+        },
+        {
+          "activation": 1.046875,
+          "feature_index_sae": 6956,
+          "feature_label": "Professional or academic expertise in analytical fields"
+        }
+      ]
+    ],
+    [
+      "!",
+      [
+        {
+          "activation": 1.359375,
+          "feature_index_sae": 43853,
+          "feature_label": "Searching for hidden treasure in adventure narratives"
+        },
+        {
+          "activation": 1.296875,
+          "feature_index_sae": 20917,
+          "feature_label": "Enthusiastic conclusion of lighthearted content"
+        }
+      ]
+    ]
+  ]
+}
